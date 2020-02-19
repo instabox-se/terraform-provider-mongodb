@@ -64,6 +64,7 @@ func (client *Client) UpdateUser(user User) error {
 
 	command := bson.D{
 		{"updateUser", user.Username},
+		{"pwd", user.Password},
 		{"customData", bson.D{{"name", user.Name}, {"__managedByTerraform", true}}},
 		{"roles", bsonRoleRefs(user.Roles)},
 	}

@@ -1,6 +1,9 @@
 package main
 
 import (
+	"crypto/sha512"
+	"encoding/base64"
+
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
@@ -23,6 +26,11 @@ func userResourceServer() *schema.Resource {
 			"password": {
 				Type:     schema.TypeString,
 				Required: true,
+				StateFunc: func(val interface{}) string {
+					hasher := sha512.New()
+					hasher.Write([]byte(val.(string)))
+					return base64.URLEncoding.EncodeToString(hasher.Sum(nil))
+				},
 			},
 			"db": {
 				Type:     schema.TypeString,

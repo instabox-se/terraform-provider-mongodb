@@ -8,6 +8,16 @@ The file name must be exactly `terraform-provider-mongodb` for this to work.
 ## Example
 See `example.tf` for usage example.
 
+## Features
+- Roles
+  - Roles
+  - Privileges
+- Users
+  - Change password
+  - Roles
+
+*Note: No support for detecting server side changes at the moment. Please make sure there are none, terraform should be the owner of the created roles and users*
+
 ## Contributing
 I am a Golang noob, please correct any idiomatic mistakes and don't shame me for them.
 

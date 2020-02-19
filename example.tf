@@ -8,30 +8,26 @@ provider "mongodb" {
 resource "mongodb_user" "user1" {
   username = "user1"
   db       = "admin"
-  name     = "User Userson"
-  password = "<make sure this is not part of state...>"
+  name     = "User1 Userson"
+  password = "s3cr37" // This is stored as SHA-512 hash in state
 
   role {
-    role = mongodb_role.ib_developer.name
+    role = mongodb_role.role1.name
     db   = "admin"
   }
 }
 
-resource "mongodb_role" "ib_developer" {
-  name = "ib-developer"
+resource "mongodb_role" "role1" {
+  name = "role1"
   db   = "admin"
 
   role {
-    role = "read"
+    role = "read" // This is a built-in role in MongoDB
     db   = "production"
   }
   role {
-    role = "readWrite"
+    role = "readWrite" // This is a built-in role in MongoDB
     db   = "development"
-  }
-  role {
-    role = "readWrite"
-    db   = "sandbox"
   }
 
   privilege {
