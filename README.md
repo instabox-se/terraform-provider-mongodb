@@ -1,4 +1,4 @@
-# terraform-provider-mongodbacl
+# terraform-provider-mongodb
 
 ## Installation
 Download source and build with `go build -o terraform-provider-mongodb`. Move resulting binary to `~/.terraform.d/plugins`.
