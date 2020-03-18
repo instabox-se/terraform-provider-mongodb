@@ -7,11 +7,12 @@ import (
 )
 
 type User struct {
-	Username string    `bson:"user"`
-	Password string    `bson:"-"`
-	Name     string    `bson:"customData.name"`
-	Db       string    `bson:"db"`
-	Roles    []RoleRef `bson:"roles"`
+	Username            string    `bson:"user"`
+	Password            string    `bson:"-"`
+	AllowPasswordUpdate bool      `bson:"-"`
+	Name                string    `bson:"customData.name"`
+	Db                  string    `bson:"db"`
+	Roles               []RoleRef `bson:"roles"`
 }
 
 type UsersInfoResult struct {
@@ -64,9 +65,12 @@ func (client *Client) UpdateUser(user User) error {
 
 	command := bson.D{
 		{"updateUser", user.Username},
-		{"pwd", user.Password},
 		{"customData", bson.D{{"name", user.Name}, {"__managedByTerraform", true}}},
 		{"roles", bsonRoleRefs(user.Roles)},
+	}
+
+	if user.AllowPasswordUpdate {
+		command = append(command, bson.E{"pwd", user.Password})
 	}
 
 	opts := options.RunCmd().SetReadPreference(readpref.Primary())

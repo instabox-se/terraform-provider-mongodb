@@ -32,6 +32,11 @@ func userResourceServer() *schema.Resource {
 					return base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 				},
 			},
+			"allow_password_update": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				Default:  true,
+			},
 			"db": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -99,11 +104,11 @@ func userResourceServerDelete(d *schema.ResourceData, m interface{}) error {
 
 func userInfo(d *schema.ResourceData) User {
 	return User{
-		Username: d.Get("username").(string),
-		Name:     d.Get("name").(string),
-		Password: d.Get("password").(string),
-		Db:       d.Get("db").(string),
-		Roles:    expandRoleRefs(d.Get("role").(*schema.Set)),
-		// Privileges: expandPrivileges(d.Get("priivileges").([]interface{})),
+		Username:            d.Get("username").(string),
+		Name:                d.Get("name").(string),
+		Password:            d.Get("password").(string),
+		AllowPasswordUpdate: d.Get("allow_password_update").(bool),
+		Db:                  d.Get("db").(string),
+		Roles:               expandRoleRefs(d.Get("role").(*schema.Set)),
 	}
 }

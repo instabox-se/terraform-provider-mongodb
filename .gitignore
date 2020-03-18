@@ -71,3 +71,5 @@ build
 release
 .terraform
 terraform.tfstate*
+
+terraform-provider-mongodb

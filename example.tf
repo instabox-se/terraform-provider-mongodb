@@ -6,6 +6,7 @@ provider "mongodb" {
 }
 
 resource "mongodb_user" "user1" {
+  allow_password_update = false
   username = "user1"
   db       = "admin"
   name     = "User1 Userson"
