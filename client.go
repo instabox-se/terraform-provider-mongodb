@@ -23,7 +23,7 @@ func (c *CreateResult) IsOk() bool {
 }
 
 func NewClient(connectionString string) (interface{}, error) {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 2*time.Minute)
 	c, err := mongo.Connect(ctx, options.Client().ApplyURI(connectionString))
 
 	if err != nil {
