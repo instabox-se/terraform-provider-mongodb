@@ -24,8 +24,9 @@ func userResourceServer() *schema.Resource {
 				Required: true,
 			},
 			"password": {
-				Type:     schema.TypeString,
-				Required: true,
+				Type:      schema.TypeString,
+				Required:  true,
+				Sensitive: true,
 				StateFunc: func(val interface{}) string {
 					hasher := sha512.New()
 					hasher.Write([]byte(val.(string)))
